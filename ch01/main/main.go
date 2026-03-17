@@ -27,8 +27,12 @@ func main() {
 	modelConf := shared.NewModelConfig()
 	switch {
 	case *useRaw && *useStream:
-		break
+		ch01.StreamingRequestRawHTTP(ctx, modelConf, *query)
 	case *useRaw:
 		ch01.NonStreamingRequestRawHTTP(ctx, modelConf, *query)
+	case *useStream:
+		ch01.StreamingRequestSDK(ctx, modelConf, *query)
+	default:
+		ch01.NonStreamingRequestSDK(ctx, modelConf, *query)
 	}
 }
